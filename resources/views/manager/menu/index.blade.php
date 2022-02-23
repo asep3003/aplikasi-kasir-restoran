@@ -1,5 +1,4 @@
-@extends('layouts.manager')
-    
+@extends('layouts.master')
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -11,7 +10,9 @@
             </div>
         </div>
     </div>
+
     <br>
+
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
@@ -36,19 +37,14 @@
             <td>{{ $menu->ketersediaan }}</td>
             <td>
                 <form action="{{ route('menu.destroy',$menu->id) }}" method="POST">
-    
                     <a class="btn btn-primary" href="{{ route('menu.edit',$menu->id) }}">Edit</a>
-    
                     @csrf
                     @method('DELETE')
-        
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
         </tr>
         @endforeach
     </table>
-    
     {!! $menus->links() !!}
-        
 @endsection

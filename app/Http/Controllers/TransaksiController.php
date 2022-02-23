@@ -90,7 +90,7 @@ class TransaksiController extends Controller
         $category = Transaksi::findOrFail($id);
         if($category) {
             $category->delete();
-            return redirect()->route('transaksi.index');
+            return redirect()->route('transaksi.index')->with('success', 'Berhasil Hapus!');
         }
         return redirect()->route('transaksi.index');
     }

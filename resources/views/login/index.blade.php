@@ -1,33 +1,3 @@
-{{-- @extends('layouts.login')
-@section('container')
-<div class="row justify-content-center">
-    <div class="col-md-5">
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ $message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-
-        <main class="form-sigin">
-            <form action="{{ route('login.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="form-floating">
-                    <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Username">
-                    <label for="floatingInput">Username</label>
-                </div>
-                <div class="form-floating">
-                    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword">Password</label>
-                </div>
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-            </form>
-        </main>
-    </div>
-</div>
-@endsection --}}
-
-
 @extends('layouts.login')
 @section('container')
     <div class="container">

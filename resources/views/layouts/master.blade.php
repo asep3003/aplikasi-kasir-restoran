@@ -1,178 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-<head>
+        <title>Cafe Bisa Ngopi</title>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+        <!-- Custom fonts for this template-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link href="{{ asset('assets/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <title>Cafe Bisa Ngopi</title>
+        <!-- Custom styles for this template-->
+        <link href="{{ asset('assets/admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    </head>
 
-  <!-- Custom fonts for this template-->
-  <link href="assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <body id="page-top">
 
-  <!-- Custom styles for this template-->
-  <link href="{{ asset('assets/admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-</head>
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-<body id="page-top">
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/{{ strtolower(Auth::user()->role) }}">
+                    <div class="sidebar-brand-text mx-3">Cafe Bisa Ngopi</div>
+                </a>
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                <!-- Nav Item - Dashboard -->
+                <li class="{{ request()->is('manager') ? 'active' : '' }} nav-item">
+                    <a class="nav-link" href="/{{ strtolower(Auth::user()->role) }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard {{ Auth::user()->role }}</span></a>
+                </li>
 
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-text mx-3">Perpustakaan</div>
-      </a>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Data
+                </div>
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                {{-- feature if user have role Admin --}}
+                @if (auth()->user()->role == 'Admin')
+                    <li class="{{ request()->is('admin/userList') ? 'active' : '' }} nav-item">
+                        <a class="nav-link collapsed" href="{{ route('userList.index') }}">
+                            <i class="fas fa-user"></i>
+                            <span>User</span>
+                        </a>
+                    </li>
+                @endif
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+                {{-- feature if user have role Manager --}}
+                @if (auth()->user()->role == 'Manager')
+                    <li class="{{ request()->is('manager/menu') ? 'active' : '' }} nav-item">
+                        <a class="nav-link collapsed" href="{{ route('menu.index') }}">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>Menu</span>
+                        </a>
+                    </li>
+                    <li class="{{ request()->is('manager/laporan') ? 'active' : '' }} nav-item">
+                        <a class="nav-link collapsed" href="/manager/laporan">
+                            <i class="fa-solid fa-file-lines"></i>
+                            <span>Laporan</span>
+                        </a>
+                    </li>
+                @endif
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Data
-      </div>
+                {{-- feature if user have role Kasir --}}
+                @if (auth()->user()->role == 'Kasir')
+                    <li class="{{ request()->is('kasir/transaksi') ? 'active' : '' }} nav-item">
+                        <a class="nav-link collapsed" href="{{ route('transaksi.index') }}">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <span>Transaksi</span>
+                        </a>
+                    </li>
+                @endif
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Data Dasar</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ url('books') }}">Data Buku</a>
-            <a class="collapse-item" href="{{ url('publishers') }}">Data Penerbit</a>
-            <a class="collapse-item" href="{{ url('students') }}">Data Siswa</a>
-            <a class="collapse-item" href="{{ url('rayons') }}">Data Rayon</a>
-            <a class="collapse-item" href="{{ url('studentGroups') }}">Data Rombel</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Logout</span></a>
+                </li>
 
-          </div>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+            </ul>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+                <br>
+                <div class="container">
+                    <section class="content">
+                        @yield('content')
+                    </section>
+                </div>
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
         </div>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
-
-       <!-- Nav Item - Register -->
-       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Register</span></a>
-      </li>
-
-      <!-- Nav Item - Login -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Logout</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
-      <div id="content">
-        <br>
-        <div class="container">
-          <section class="content">
-            @yield('content')
-          </section>
-        </div>
-      </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
     </div>
-    <!-- End of Content Wrapper -->
 
-  </div>
-  <!-- End of Page Wrapper -->
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('assets/admin/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('assets/admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- Custom scripts for all pages-->
+    <script src="{{ asset('assets/admin/js/sb-admin-2.min.js') }}"></script>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="assets/admin/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @yield('cjs')
 
-  <!-- Core plugin JavaScript-->
-  <script src="assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="assets/admin/js/sb-admin-2.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="assets/admin/vendor/chart.js/Chart.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="assets/admin/js/demo/chart-area-demo.js"></script>
-  <script src="assets/admin/js/demo/chart-pie-demo.js"></script>
-
-</body>
-
+    </body>
 </html>

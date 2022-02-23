@@ -1,8 +1,7 @@
-@extends('layouts.manager')
+@extends('layouts.master')
 @section('content')
     <div class="row">
-        
-    
+
         <!-- Modal -->
         <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -38,7 +37,9 @@
             </div>
         </div>
     </div>
+
     <br>
+
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
@@ -53,15 +54,12 @@
             <th>Jumlah</th>
             <th>Total</th>
             <th>Nama Pegawai</th>
-            <th width="100px">Action</th>
+            <th>Tanggal</th>
         </tr>
         <tbody id="loadDataTransaksi">
-            
+
         </tbody>
-    </table>
-    
-    {{-- {!! $transaksis->links() !!} --}}
-        
+    </table>        
 @endsection
 @section('cjs')
     <script>
