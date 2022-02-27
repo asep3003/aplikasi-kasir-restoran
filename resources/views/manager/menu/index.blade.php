@@ -26,7 +26,7 @@
             <th>Harga</th>
             <th>Deskripsi</th>
             <th>Ketersediaan</th>
-            <th width="160px">Action</th>
+            <th width="115px">Action</th>
         </tr>
         @foreach ($menus as $menu)
         <tr>
@@ -37,10 +37,14 @@
             <td>{{ $menu->ketersediaan }}</td>
             <td>
                 <form action="{{ route('menu.destroy',$menu->id) }}" method="POST">
-                    <a class="btn btn-primary" href="{{ route('menu.edit',$menu->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('menu.edit',$menu->id) }}">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
                 </form>
             </td>
         </tr>

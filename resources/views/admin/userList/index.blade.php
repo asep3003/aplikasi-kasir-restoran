@@ -25,7 +25,7 @@
             <th>Name</th>
             <th>Username</th>
             <th>Role</th>
-            <th width="160px">Action</th>
+            <th width="112px">Action</th>
         </tr>
         @foreach ($users as $user)
         <tr>
@@ -35,10 +35,14 @@
             <td>{{ $user->role }}</td>
             <td>
                 <form action="{{ route('userList.destroy',$user->id) }}" method="POST">
-                    <a class="btn btn-primary" href="{{ route('userList.edit',$user->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('userList.edit',$user->id) }}">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
                 </form>
             </td>
         </tr>

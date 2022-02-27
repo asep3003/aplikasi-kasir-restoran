@@ -31,7 +31,7 @@
             <th>Jumlah</th>
             <th>Total</th>
             <th>Nama Pegawai</th>
-            <th width="100px">Action</th>
+            <th width="55px">Action</th>
         </tr>
         @foreach ($transaksis as $transaksi)
         <tr>
@@ -46,7 +46,9 @@
                     @csrf
                     @method('DELETE')
         
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
                 </form>
             </td>
         </tr>
