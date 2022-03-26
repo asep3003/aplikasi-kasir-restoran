@@ -35,7 +35,7 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="{{ request()->is('manager') ? 'active' : '' }} nav-item">
+                <li class="{{ request()->is(strtolower(Auth::user()->role)) ? 'active' : '' }} nav-item">
                     <a class="nav-link" href="/{{ strtolower(Auth::user()->role) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard {{ Auth::user()->role }}</span></a>

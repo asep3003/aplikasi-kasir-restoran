@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use App\Models\Transaksi;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class TransaksiController extends Controller
 {
@@ -101,6 +103,30 @@ class TransaksiController extends Controller
         if (isset($request->start_date) && isset($request->end_date)) {
             $transaksis = Transaksi::whereBetween('created_at', [Carbon::parse($request->start_date), Carbon::parse(date($request->end_date) . ' 23:59:59')])->get()->sortByDesc('id');
         }
+        Session::put('transaksi', $transaksis);
         return view('manager.laporan.load', compact('transaksis'))->render();
+    }
+
+    public function cetak_pdf()
+    {
+        $employe = Auth::user()->name;
+        $role = Auth::user()->role;
+        $laporan = Session::get('transaksi');
+        $data = [
+            'employe' => $employe,
+            'role' => $role,
+            'laporan' => $laporan,
+        ];
+
+        $pdf = PDF::loadView('manager.laporan.laporan_pdf', $data);
+        // return $pdf->download('laporan-transaksi' . '.pdf');     -- Jika ingin langsung kedownload
+        return $pdf->stream();                                      // Jika hanya ingin preview
+    }
+
+    public function struk($id)
+    {
+        $transaksis = Transaksi::findOrFail($id);
+        // dd($transaksis);
+        return view('kasir.transaksi.struk', compact('transaksis'));
     }
 }
