@@ -7,7 +7,6 @@ use App\Models\Transaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -48,22 +47,6 @@ class TransaksiController extends Controller
         ]);
 
         $menu->update(['ketersediaan' => $menu->ketersediaan - $data['jumlah']]);
-
-        // $query = DB::table('menu')->where('nama_menu', $data['nama_menu'])->first();
-        // $jumlahPesanan = $data['jumlah'];
-        // $hargaSatuan = $query->harga;
-        // $totalHarga = $jumlahPesanan * $hargaSatuan;
-        // $updateKetersediaan = $query->ketersediaan - $jumlahPesanan;
-
-        // $insert = new Transaksi;
-        // $insert->nama_pelanggan = $request->nama_pelanggan;
-        // $insert->nama_menu = $request->nama_menu;
-        // $insert->jumlah = $request->jumlah;
-        // $insert->total_harga = $totalHarga;
-        // $insert->nama_pegawai = Auth::user()->name;
-        // $insert->save();
-
-        // Menu::where('nama_menu', $data['nama_menu'])->update(['ketersediaan' => $updateKetersediaan]);
 
         return redirect()->route('transaksi.index')->with('success', 'Berhasil Menyimpan!');
     }
@@ -126,7 +109,6 @@ class TransaksiController extends Controller
     public function struk($id)
     {
         $transaksis = Transaksi::findOrFail($id);
-        // dd($transaksis);
         return view('kasir.transaksi.struk', compact('transaksis'));
     }
 }
